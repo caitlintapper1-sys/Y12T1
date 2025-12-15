@@ -1,0 +1,124 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial;
+    background-color: #f0f0f0;
+}
+
+.header {
+    background-color: #333;
+    color: white;
+    padding: 15px;
+    margin-bottom: 20px;
+}
+
+.logout-button {
+    background-color: #ff4444;
+    color: white;
+    text-decoration: none;
+    padding: 8px 15px;
+    border-radius: 3px;
+}
+
+.main {
+    width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+.form-box {
+    background-color: white;
+    padding: 20px;
+    margin-bottom: 20px;
+    width: 500px;
+    margin: 0 auto;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+label {
+    display: block;
+    margin-top: 10px;
+}
+
+input, textarea, button {
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 5px;
+}
+
+button {
+    background-color: #4287f5;
+    color: white;
+    padding: 10px;
+    border: none;
+    margin-top: 10px;
+}
+
+.auth {
+    text-align: center;
+}
+
+.auth-link {
+    color: #007bff;
+    text-decoration: none;
+    text-align: center;
+    margin-top: 1rem;
+}
+
+.message {
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border-radius: 4px;
+}
+
+.success {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3ebcb
+}
+
+.error {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb
+}
+
+.movie {
+    background-color: white;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.movie-img {
+    max-width: 100%;
+    max-height: 400px;
+    object-fit: contain;
+    display: block;
+    margin: 0 auto;
+    padding-right: 5px;
+}
+
+.date {
+    color: gray;
+}
+
+.auth-link-header {
+    color: #ffffff;
+    text-decoration: none;
+    text-align: center;
+    margin-top: 1rem;
+}
+
+.movie-d {
+    vertical-align: top;
+    padding: 0 2px;
+}
+
+.movie-row {
+    padding: 0 5px;
+}

@@ -12,13 +12,27 @@ def get_db():
 
 @app.route('/')
 def home():
-    db = get_db()
-    
+    #db = get_db()
+
     return render_template('home.html')
     
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
 
+        db = get_db()
+        user = db.execute(
+            'SELECT * FROM users WHERE username = ?', (username,)
+        ).fetchone()
+
+        if user and check_password_hash(user['password'], password):
+            session.clear()
+            session['user.id'] = user['id']
+            session['username'] = user['username']
+            return redirect(url_for('home'))
+    flash('Invalid username or password', 'error')
     return render_template('login.html')
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -40,5 +54,7 @@ def register():
             flash('Username already exists', 'error')
 
     return render_template('register.html')
+
+#@app.route('/create-movie')
 
 app.run(debug=True, port=5000)

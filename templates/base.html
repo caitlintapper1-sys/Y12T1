@@ -7,14 +7,49 @@
         <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
         <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='icons/favicon.png') }}">
         <meta name="theme-color" content="#000000">
+        <link rel="manifest" href="/manifest.json">
+        <script>
+            if ('serviceWorker' in navigator) {
+                window.addEventListener('load', () => {
+                    navigator.serviceWorker.register('/service-worker.js')
+                    .then(registration => {
+                        console.log('ServiceWorker registration successful with scope: ',registration.scope);
+                    })
+                    .catch(err => {
+                        console.error('ServiceWorker registration failed: ', err);
+                    });
+                });
+            }
+        </script>
     </head>
     <body>
         <div class="header">
-            {% if user not in session %}
-            <h2><a href="{{ url_for('login') }}" class="auth-link-header">Login</a></h2>
-            {% else %}
-            <h2>placeholder</h2>
-            {% endif %}
+            
+            {# links to homepage #}
+            <div>
+                <a href="{{ url_for('home') }}" class="auth-link-header">Home</a>
+            </div>
+
+            {# search bar #}
+            <div>
+                <form class="search_bar" action="{{ url_for('search') }}" method="post" enctype="multipart/form-data">
+                    <input class="search_input" type="text" id="search" name="search" placeholder="🔍Search" required>
+                </form>
+            </div>
+            
+            <div>
+                {# creates add movie link, needs to depend on if user logged in and an admin #}  
+                {% if session.user_id and session.admin == 1 %}
+                    <a href="{{ url_for('add_movie') }}" class="create_movie_link">Create movie</a>
+                {% endif %}
+
+                {# creates login link and logout button, depends on if user logged in #}
+                {% if session.user_id %}
+                    <a href="{{ url_for('logout') }}" class="logout-button">Logout</a>
+                {% else %}
+                    <a href="{{ url_for('login') }}" class="auth-link-header">Login</a>
+                {% endif %}
+            </div>
         </div>
         <div class="main">
             {% with messages = get_flashed_messages(with_categories=true) %}

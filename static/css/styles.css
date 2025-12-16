@@ -10,6 +10,8 @@ body {
     color: white;
     padding: 15px;
     margin-bottom: 20px;
+    display: grid;
+    grid-template-columns: 22% 64% 20%;
 }
 
 .logout-button {
@@ -18,6 +20,8 @@ body {
     text-decoration: none;
     padding: 8px 15px;
     border-radius: 3px;
+    margin-left: 15px;
+    margin-right: 20px;
 }
 
 .main {
@@ -103,6 +107,15 @@ button {
     padding-right: 5px;
 }
 
+.movie-img-search {
+    max-width: 100%;
+    max-height: 150px;
+    object-fit: contain;
+    display: block;
+    margin: 0 auto;
+    padding-right: 5px;
+}
+
 .date {
     color: gray;
 }
@@ -112,6 +125,8 @@ button {
     text-decoration: none;
     text-align: center;
     margin-top: 1rem;
+    font-size: large;
+    margin-right: 20px;
 }
 
 .movie-d {
@@ -121,4 +136,79 @@ button {
 
 .movie-table {
     padding: 5px;
+}
+
+.create_movie_link {
+    color: white;
+    text-decoration: none;
+    padding: auto;
+    font-size: large;
+}
+
+.search_bar {
+    width: 80%;
+
+}
+
+.search_input {
+    margin-bottom: 0;
+}
+
+.movie-link {
+    color: black;
+}
+
+.review {
+    background-color: white;
+    padding: 20px;
+    margin-bottom: 20px;
+    width: 500px;
+    margin: 0 auto;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.movie-row {
+    padding-bottom: 20px;
+}
+
+.movie-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.movie-actions {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.icon-button {
+    background: none;
+    border: none;
+    padding: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.icon-button:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+    border-radius: 4px;
+}
+
+.icon {
+    width: 16px;
+    height: 16px;
+    opacity: 0.7;
+}
+
+.icon-button:hover .icon {
+    opacity: 1;
+}
+
+.inline-form {
+    display: inline;
 }

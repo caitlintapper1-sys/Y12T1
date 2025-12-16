@@ -12,7 +12,8 @@ description TEXT,
 image_path TEXT NOT NULL,
 release_year INTEGER NOT NULL,
 director TEXT NOT NULL,
-rating INTEGER NOT NULL
+rating INTEGER NOT NULL,
+created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE IF NOT EXISTS reviews(
@@ -21,7 +22,13 @@ user_id INTEGER NOT NULL,
 movie_id INTEGER NOT NULL,
 rating INTEGER NOT NULL,
 description TEXT,
+created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 FOREIGN KEY (user_id) REFERENCES users (id),
 FOREIGN KEY (movie_id) REFERENCES movies (id)
 );
+
+/* needs to run after creating a new movie + giving it a hardcoded in review sorry */
+CREATE VIEW IF NOT EXISTS ratings_and_movies AS SELECT movies.id, movies.title, movies.description, movies.release_year, movies.director, movies.image_path, movies.created_at, AVG(reviews.rating) AS rating FROM movies, reviews
+WHERE movies.id = reviews.movie_id
+GROUP BY movie_id;
 

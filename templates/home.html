@@ -1,7 +1,40 @@
 {% extends "base.html" %}
+{# main page, should show 2 movies, most recent and highest rated #}
 
 {% block content %}
-    <h1>Placeholder</h1>
-    {% include "entry.html" %}
-    {% include "entry.html" %}
+
+    <div>
+        <table class="movie-table">
+            <tr>
+                <td>
+                    <img class="movie-img" src="{{ url_for('static', filename=recent.image_path) }}">
+                </td>
+                <td class="movie-d">
+                    
+                    <h3>{{ recent.rating }} / 10</h3>
+                    <h2><a class="movie-link" href="/movie/{{recent.id}}">{{ recent.title }}</a></h2>
+                    <p>{{ recent.release_year }}</p>
+                    <p>{{ recent.description }}</p>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div>
+        <table class="movie-table">
+            <tr>
+                <td>
+                    <img class="movie-img" src="{{ url_for('static', filename=rate.image_path) }}">
+                </td>
+                <td class="movie-d">
+                    
+                    <h3>{{ rate.rating }} / 10</h3>
+                    <h2><a class="movie-link" href="/movie/{{rate.id}}">{{ rate.title }}</a></h2>
+                    <p>{{ rate.release_year }}</p>
+                    <p>{{ rate.description }}</p>
+                </td>
+            </tr>
+        </table>
+    </div>
+
 {% endblock %}

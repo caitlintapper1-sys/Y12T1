@@ -1,0 +1,25 @@
+{
+    "name": "Movie Reviews",
+    "short-name": "Movies",
+    "start_url": "/",
+    "display": "standalone",
+    "background-color": "#ffffff",
+    "theme-color": "#000000",
+    "icons": [
+        {
+            "src": "/static/icons/favicon.png",
+            "sizes": "64x64",
+            "type": "image/png"
+        },
+        {
+            "src": "/static/icons/icon-delete-64x64.png",
+            "sizes": "64x64",
+            "type": "image/png"
+        },
+        {
+            "src": "/static/icons/icon-edit-64x64.png",
+            "sizes": "64x64",
+            "type": "image/png"
+        }
+    ]
+}

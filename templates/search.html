@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div>
+    {% for movie in movies %}
+        <table class="movie-table">
+            <tr>
+                <td>
+                    <img class="movie-img-search" src="{{ url_for('static', filename=movie.image_path) }}">
+                </td>
+                <td class="movie-d">
+                    <h2><a class="movie-link" href="/movie/{{movie.id}}">{{movie.title}}</a></h2>
+                    <p>{{movie.release_year}}</p>
+                </td>
+            </tr>
+        </table>
+    {% endfor %}
+</div>
+
+{% endblock %}

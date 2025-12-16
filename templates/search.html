@@ -1,8 +1,11 @@
+{# somewhat adapted from ms tutorial #}
+
 {% extends "base.html" %}
 
 {% block content %}
 
 <div>
+    {# in table for better css formatting #}
     {% for movie in movies %}
         <table class="movie-table">
             <tr>

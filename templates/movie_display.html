@@ -1,6 +1,8 @@
 {% extends "base.html" %}
 {% block content %}
 
+{# majority adapted from MS tutorial #}
+
 {# shows selected movie #}
 {% if movie != none %}
     <div>
@@ -15,6 +17,7 @@
                         <h2>{{ movie.title }}</h2>
                         <p>{{ movie.release_year }}</p>
                         <p>{{ movie.description }}</p>
+                        {% if session.user_id and session.admin == 1 %}
                         <div class="entry-footer">
                             <div class="entry-actions">
                                 <button class="icon-button" onclick="showEditForm('{{ movie.id }}')" title="Edit movie">
@@ -27,6 +30,7 @@
                                 </form>
                             </div>
                         </div>
+                        {% endif %}
                     </div>
                     {# form to edit movie, hidden #}
                     <div id="edit-{{ movie.id }}" style="display: none;">

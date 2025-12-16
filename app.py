@@ -5,6 +5,8 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.utils import secure_filename
 from datetime import datetime
 
+#majority code from/adapted from MS tutorial
+
 app = Flask(__name__)
 app.secret_key = 'hehesecret'
 
@@ -26,12 +28,13 @@ def get_db():
 @app.route('/')
 def home():
     db = get_db()
-
+    #finds most recent movie created
     recent = db.execute(f'''
         SELECT * FROM ratings_and_movies
         ORDER BY created_at DESC LIMIT 1 
     ''').fetchone()
 
+    #finds highest rated movie
     rate = db.execute(f'''
         SELECT * FROM ratings_and_movies
         ORDER BY rating DESC LIMIT 1 
@@ -89,7 +92,7 @@ def logout():
     session.clear()
     return redirect(url_for('home'))
 
-#page to show the create movie form, should only be accessable to users who are logged in and an admin
+#page to show the create movie form, only accessable to users who are logged in and an admin
 @app.route('/add_movie')
 def add_movie():
     if 'user_id' not in session:
@@ -123,7 +126,6 @@ def create_movie():
         file.save(filepath)
 
         db = get_db()
-        #remove rating later
         db.execute('''
             INSERT INTO movies (title, description, image_path, release_year, director)
             VALUES(?, ?, ?, ?, ?)
@@ -161,15 +163,22 @@ def create_review():
     flash('Review added successfully!', 'success')
     return redirect(url_for('movie_display', movie_id = request.form['movie_id']))
 
+#<movie_id> code from https://flask.palletsprojects.com/en/stable/api/#url-route-registrations
 @app.route('/movie/<movie_id>')
 def movie_display(movie_id):
     db = get_db()
 
+    #'incorrect number of bindings supplied. current statement uses 1, there are 2 supplied
+    #NO THERE ARE NOT???
+    #decided to stop working with entires added after #2
+    #do not know why
+    #FIX IN THE MORNING!!!!!
     movie = db.execute(f'''
         SELECT * FROM ratings_and_movies
-        WHERE id == ?''',
+        WHERE id == ? ''',
         (movie_id)).fetchone()
     
+    #presumably also does not work? maybe? unsure.
     reviews = db.execute('''
         SELECT * FROM reviews
         WHERE movie_id == ?
@@ -178,10 +187,12 @@ def movie_display(movie_id):
     
     return render_template('movie_display.html', movie=movie, reviews=reviews)
 
+#creates the page searching via search bar leads too
 @app.route('/search', methods=['POST'])
 def search():
     db = get_db()
     search = request.form['search']
+    #allows search to work, uses results that contain the original search in them, does not support typos
     movies = db.execute(f'''
         SELECT * FROM ratings_and_movies
         WHERE title LIKE "%{search}%"
@@ -189,11 +200,13 @@ def search():
         ''',).fetchall()
     return render_template('search.html', movies = movies)
 
+#offline page
 @app.route('/offline')
 def offline():
     response = make_response(render_template('offline.html'))
     return response
 
+#service worker, lets pwa work?
 @app.route('/service-worker.js')
 def sw():
     response = make_response(
@@ -202,6 +215,7 @@ def sw():
     )
     return response
 
+#manifest, also pwa
 @app.route('/manifest.json')
 def manifest():
     response = make_response(
@@ -209,10 +223,13 @@ def manifest():
     )
     return response
 
+#route for edit movie form, shows on movie pages, hidden by default and only accessable by admins
 @app.route('/edit_movie/<movie_id>', methods=['POST'])
 def edit_movie(movie_id):
+    #ensures user is logged in
     if 'user_id' not in session:
         return redirect(url_for('movie_display', movie_id=movie_id))
+    #ensures user is an admin 
     if session['admin'] == 0:
         return redirect(url_for('movie_display', movie_id=movie_id))
     db = get_db()
@@ -250,6 +267,7 @@ def edit_movie(movie_id):
                 SET title = ?, description = ?, image_path = ?, release_year = ?, director = ?
                 WHERE id = ?
             ''', (title, description, f"uploads/{filename}", release_year, director, movie_id))
+            #was not in tutorial but does not function without it
             db.commit()
             return redirect(url_for('movie_display', movie_id=movie_id))
         else:
@@ -267,10 +285,14 @@ def edit_movie(movie_id):
         return redirect(url_for('movie_display', movie_id=movie_id))
 
     
-
+#route to delete
 @app.route('/delete_movie/<movie_id>', methods=['POST'])
 def delete_movie(movie_id):
+    #ensures user is logged in
     if 'user_id' not in session:
+        return redirect(url_for('movie_display', movie_id=movie_id))
+    #ensures user is an admin
+    if session['admin'] == 0:
         return redirect(url_for('movie_display', movie_id=movie_id))
     db = get_db()
 

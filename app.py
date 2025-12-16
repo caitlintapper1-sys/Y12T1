@@ -176,14 +176,14 @@ def movie_display(movie_id):
     movie = db.execute(f'''
         SELECT * FROM ratings_and_movies
         WHERE id == ? ''',
-        (movie_id)).fetchone()
+        (movie_id,)).fetchone()
     
     #presumably also does not work? maybe? unsure.
     reviews = db.execute('''
         SELECT * FROM reviews
         WHERE movie_id == ?
         ORDER BY created_at DESC
-    ''',(movie_id)).fetchall()
+    ''',(movie_id,)).fetchall()
     
     return render_template('movie_display.html', movie=movie, reviews=reviews)
 

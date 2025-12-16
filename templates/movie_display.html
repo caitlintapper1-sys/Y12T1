@@ -9,7 +9,7 @@
         <table class="movie-table">
             <tr>
                 <td class="movie-row">
-                    <img class="movie-img" src="{{ url_for('static', filename=movie.image_path) }}">
+                    <img class="movie-img" src="{{ url_for('static', filename=movie.image_path) }}" alt="{{ movie.title }} Poster">
                 </td>
                 <td class="movie-d">
                     <div id="display-{{ movie.id }}">

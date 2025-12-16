@@ -8,7 +8,7 @@
         <table class="movie-table">
             <tr>
                 <td>
-                    <img class="movie-img" src="{{ url_for('static', filename=recent.image_path) }}">
+                    <img class="movie-img" src="{{ url_for('static', filename=recent.image_path) }}" alt="{{ recent.title }} Poster">
                 </td>
                 <td class="movie-d">
                     
@@ -25,7 +25,7 @@
         <table class="movie-table">
             <tr>
                 <td>
-                    <img class="movie-img" src="{{ url_for('static', filename=rate.image_path) }}">
+                    <img class="movie-img" src="{{ url_for('static', filename=rate.image_path) }}" alt="{{ recent.title }} Poster">
                 </td>
                 <td class="movie-d">
                     

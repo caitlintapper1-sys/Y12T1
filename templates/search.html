@@ -10,7 +10,7 @@
         <table class="movie-table">
             <tr>
                 <td>
-                    <img class="movie-img-search" src="{{ url_for('static', filename=movie.image_path) }}">
+                    <img class="movie-img-search" src="{{ url_for('static', filename=movie.image_path) }}" alt="{{ movie.title }} Poster">
                 </td>
                 <td class="movie-d">
                     <h2><a class="movie-link" href="/movie/{{movie.id}}">{{movie.title}}</a></h2>
